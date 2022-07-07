@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Navbar from "./components/Navbar";
 
+const url = "https://ourmenu-backend.herokuapp.com/data";
 function App() {
+  const [category, setCategory] = useState("");
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((data) => setData(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  let filtered = Object.values(data)?.filter((item) => item.category === category);
+
+
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Navbar setCategory={setCategory} data={data} category={category} />
+      <Main data={data} filtered={filtered}/>
     </div>
   );
 }
