@@ -6,6 +6,9 @@ const NavbarDiv = styled.div`
   justify-content: center;
   margin-top: 3rem;
   gap: 5rem;
+  @media screen and (max-width:620px){
+    gap:1rem
+  }
 `;
 const ButtonStyled = styled.button`
   cursor: pointer;

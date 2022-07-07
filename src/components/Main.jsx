@@ -15,6 +15,9 @@ const MainDiv = styled.div`
     font-size: 25px;
     background-color: azure;
   }
+  @media screen and (max-width: 620px) {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
 `;
 
 const CardDiv = styled.div`
@@ -26,6 +29,9 @@ const CardDiv = styled.div`
     border: 5px solid #c59d5f;
     width: 235px;
     height: 160px;
+    @media screen and (max-width: 620px) {
+      margin: auto;
+    }
   }
 
   .card-content {
@@ -49,65 +55,48 @@ const CardDiv = styled.div`
     font-size: 14px;
     font-weight: 200;
   }
+  @media screen and (max-width: 620px) {
+    grid-template-columns: 1fr;
+  }
 `;
-function Main({ data ,filtered}) {
+function Main({ data, filtered }) {
   return (
     <MainDiv>
-        {
-            (filtered.length === 0) ? (
-                data?.map((item) => {
-                    return (
-                      <CardDiv className="card" key={item.id}>
-                        <div className="card-img">
-                          <img
-                            src={item.image}
-                            alt=""
-                            width="225px"
-                            height="150px"
-                          />
-                        </div>
-            
-                        <div className="card-content">
-                          <div className="card-content-1">
-                            <h5>{item.name}</h5>
-                            <p>{item.price}</p>
-                          </div>
-                          <div className="card-content-2">
-                            {item.desc}
-                          </div>
-                        </div>
-                      </CardDiv>
-                    );
-                  })
-            ) : (
-                filtered?.map((item) => {
-                    return (
-                      <CardDiv className="card" key={item.id}>
-                        <div className="card-img">
-                          <img
-                            src={item.image}
-                            alt=""
-                            width="225px"
-                            height="150px"
-                          />
-                        </div>
-            
-                        <div className="card-content">
-                          <div className="card-content-1">
-                            <h5>{item.name}</h5>
-                            <p>{item.price}</p>
-                          </div>
-                          <div className="card-content-2">
-                            {item.desc}
-                          </div>
-                        </div>
-                      </CardDiv>
-                    );
-                  })
-            )
-        }
+      {filtered.length === 0
+        ? data?.map((item) => {
+            return (
+              <CardDiv className="card" key={item.id}>
+                <div className="card-img">
+                  <img src={item.image} alt="" width="225px" height="150px" />
+                </div>
 
-      
+                <div className="card-content">
+                  <div className="card-content-1">
+                    <h5>{item.name}</h5>
+                    <p>{item.price}</p>
+                  </div>
+                  <div className="card-content-2">{item.desc}</div>
+                </div>
+              </CardDiv>
+            );
+          })
+        : filtered?.map((item) => {
+            return (
+              <CardDiv className="card" key={item.id}>
+                <div className="card-img">
+                  <img src={item.image} alt="" width="225px" height="150px" />
+                </div>
+
+                <div className="card-content">
+                  <div className="card-content-1">
+                    <h5>{item.name}</h5>
+                    <p>{item.price}</p>
+                  </div>
+                  <div className="card-content-2">{item.desc}</div>
+                </div>
+              </CardDiv>
+            );
+          })}
     </MainDiv>
   );
 }
